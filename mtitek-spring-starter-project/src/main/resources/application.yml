@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: mtitek-spring-starter-project
+
+  profiles:
+    active: dev
+    
+#logging:
+#  level:
+#    "[com.mtitek.spring]": INFO

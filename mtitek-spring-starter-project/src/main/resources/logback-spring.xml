@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- Define a property for the directory of the log files -->
+    <property name="LOG_PATH" value="./logs" />
+
+    <!-- Console appender -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- Standard human-readable log pattern with ANSI colors -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Rolling file appender -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/mtitek-spring-starter-project.log</file>
+
+        <!-- Configure rules for archiving log files when they get too large or old -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- File path pattern for rollover files -->
+            <fileNamePattern>${LOG_PATH}/archived/mtitek-spring-starter-project-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- Max size of a single log file before rolling over -->
+            <maxFileSize>10MB</maxFileSize>
+            <!-- Total history to keep in days -->
+            <maxHistory>30</maxHistory>
+            <!-- Maximum combined size of all logs on disk -->
+            <totalSizeCap>2GB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Async wrapping for performance -->
+    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="FILE" />
+    </appender>
+
+    <springProfile name="dev">
+        <!-- Package-specific levels -->
+        <logger name="com.mtitek.spring" level="INFO" additivity="false">
+            <appender-ref ref="CONSOLE" />
+            <appender-ref ref="ASYNC_FILE" />
+        </logger>
+
+        <root level="INFO">
+            <appender-ref ref="CONSOLE" />
+            <appender-ref ref="ASYNC_FILE" />
+        </root>
+    </springProfile>
+
+    <springProfile name="prod">
+        <!-- Package-specific levels -->
+        <logger name="com.mtitek.spring" level="INFO" additivity="false">
+
+            <appender-ref ref="ASYNC_FILE" />
+        </logger>
+
+        <root level="WARN">
+            <appender-ref ref="ASYNC_FILE" />
+        </root>
+    </springProfile>
+</configuration>

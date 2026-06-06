@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: mtitek-spring-starter-project
+
+  profiles:
+    active: prod
+    
+#logging:
+#  level:
+#    "[com.mtitek.spring]": INFO
+#    "[org.springframework.security]": INFO
+#    "[org.springframework.web]": INFO
+#    "[org.springframework.http.client]": INFO
