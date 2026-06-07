@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>App Profiles</title></head>
+
+<body>
+<h1>App Profiles</h1>
+
+<a href="/appProfiles/new">Add New App Profile</a>
+
+<br/><br/>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Actions - Update</th>
+			<th>Actions - Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="profile : ${profiles}">
+            <form th:action="@{/appProfiles/process/{id}(id=${profile.id})}" method="post">
+                <td>
+                    <span th:text="${profile.id}"></span>
+                </td>
+                <td>
+                    <input type="text" name="name" th:value="${profile.name}"/>
+                </td>
+                <td>
+                    <select name="role">
+                        <option th:each="role : ${T(com.mtitek.spring.model.AppProfile.Role).values()}"
+                                th:value="${role}"
+                                th:text="${role}"
+                                th:selected="${role == profile.role}">
+                        </option>
+                    </select>
+                </td>
+                <td>
+                    <button type="submit" name="update">Update</button>
+                </td>
+				<td>
+				    <button type="submit" name="delete">Delete</button>
+				</td>
+            </form>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

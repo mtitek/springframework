@@ -1,0 +1,34 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head><title>App UserProfile Form</title></head>
+
+<body>
+<h1>App UserProfile Form</h1>
+
+<form method="POST" th:object="${appUser}">
+	<span th:if="${errorMessage}" th:text="${errorMessage}"></span>
+	<br />
+
+    <div>
+        <div th:each="role : ${T(com.mtitek.spring.model.AppProfile.Role).values()}">
+            <h2 th:text="${role}"></h2>
+            <table border="1">
+                <thead><tr><th>ID</th><th>Name</th><th>Select</th></tr></thead>
+                <tbody>
+					<tr th:each="appProfile : ${#ctx.getVariable(role.toString().toLowerCase())}">
+					    <td th:text="${appProfile.id}"></td>
+					    <td th:text="${appProfile.name}"></td>
+					    <td><input type="radio" th:value="${appProfile.id}" name="appProfileId" /></td>
+					</tr>
+                </tbody>
+            </table>
+        </div>
+
+		<br />
+		
+        <button type="submit">Submit</button>
+    </div>
+</form>
+
+</body>
+</html>

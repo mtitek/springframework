@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head><title>App User Form</title></head>
+
+<body>
+<h1>App User Form</h1>
+
+<form method="POST" th:object="${appUser}" th:action="@{/appUsers}">
+<a th:href="@{/appProfiles/appUsers}" id="another">Add another App Profile</a><br />
+
+<!-- the form has th:object="${appUser}", so *{appProfiles} is shorthand for ${appUser.appProfiles} -->
+<span th:if="${#fields.hasErrors('appProfiles')}" th:errors="*{appProfiles}"></span><br />
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="appProfile : ${appUser.appProfiles}">
+            <td th:text="${appProfile.id}"></td>
+            <td th:text="${appProfile.name}"></td>
+            <td th:text="${appProfile.role}"></td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- the form has th:object="${appUser}", so *{name} is shorthand for ${appUser.name} -->
+<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span><br />
+App User Name: <input type="text" th:field="*{name}" /><br />
+
+<br />
+<input type="submit" value="Submit App User" />
+</form>
+
+</body>
+</html>
