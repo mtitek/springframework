@@ -1,0 +1,19 @@
+# The values given here are the default values. But they are explicitly set here as an example of setting the Kafka properties.
+spring:
+  kafka:
+    bootstrap-servers:
+    - localhost:9092
+    template:
+      default-topic: mtitek-kafka-topic-1
+    producer:
+      keySerializer: org.springframework.kafka.support.serializer.JsonSerializer
+      valueSerializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+    consumer:
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        "[spring.json.trusted.packages]": "*"
+
+  jackson:
+    mapper:
+      accept-case-insensitive-enums: true
