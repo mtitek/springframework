@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: mtitek-spring-oauth-client
+
+server:
+  port: 8080
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          mtitek-registration-id:
+            provider: mtitek
+            client-id: mtitek-client-id
+            client-secret: mtitek-client-secret
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://mtitekauthclient:8080/login/oauth2/code/{registrationId}"
+            scope: openid,addAppProfile,updateAppProfile,deleteAppProfile
+        provider:
+          mtitek:
+            issuer-uri: http://mtitekauthserver:8082
+            #following properties are default and hence can be ommitted
+            authorization-uri: http://mtitekauthserver:8082/oauth2/authorize
+            token-uri: http://mtitekauthserver:8082/oauth2/token
+            jwk-set-uri: http://mtitekauthserver:8082/oauth2/jwks
+            user-info-uri: http://mtitekauthserver:8082/userinfo
+            user-name-attribute: sub

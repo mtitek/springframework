@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: mtitek-spring-oauth-authorization-server
+
+server: 
+  port: 8082
+
+app:
+  security:
+    keystore:
+      path: mtitek-auth-server.jks
+      password: mtitek-auth-server-keystore-pwd
+      alias: mtitek-auth-server
+      keyPassword: mtitek-auth-server-key-pwd
